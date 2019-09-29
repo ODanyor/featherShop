@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products/products.css' %}" type="text/css">
+
+
+    <title>featherShop</title>
+</head>
+<body>
+
+    <div class="navigation">
+        <div class="logo">featherShop</div>        
+    </div>
+
+    <div class="products">
+        <ul>
+            {% for product in products %}
+                <li><a href="details/{{product.id}}/">{{product.product_name}}</a>
+                    <form style="display: inline; margin: 5px;" action="/deleteProduct/{{product.id}}/" method="post">{% csrf_token %}
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="form">
+        <form action="/addProduct/" method="post">{% csrf_token %}
+            Name:<input type="text" name="product_name"/>
+            Description:<input type="text" name="product_description"/>
+            Price:<input type="text" name="product_price"/>
+        
+            <input class="button" type="submit", value="Add"/>
+        </form>
+    </div>
+</body>
+</html>
